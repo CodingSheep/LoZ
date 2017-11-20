@@ -9,18 +9,12 @@ public class PlayerController : MonoBehaviour {
     private Animator anim;
 
     private bool moving;
-    private Vector2 lastDirection;
+    private Vector2 prevXY;
 
 	// Use this for initialization
 	void Start () {
         anim = GetComponent<Animator>();
 	}
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 	
 	// Update is called once per frame
     void FixedUpdate () {
@@ -34,11 +28,11 @@ public class PlayerController : MonoBehaviour {
             moving = true;
 
         if (horizontal > 0.1f || horizontal < -0.1f) {
-            lastDirection = new Vector2(horizontal, 0.0f);
+            prevXY = new Vector2(horizontal, 0.0f);
         }
 
         if (vertical > 0.1f || vertical < -0.1f) {
-            lastDirection = new Vector2(0.0f,vertical);
+            prevXY = new Vector2(0.0f,vertical);
         }
 
         Vector2 targetVelocity = new Vector2(horizontal, vertical);
@@ -48,7 +42,7 @@ public class PlayerController : MonoBehaviour {
         anim.SetFloat("X", horizontal);
         anim.SetFloat("Y", vertical);
         anim.SetBool("moving",moving);
-        anim.SetFloat("LastX",lastDirection.x);
-        anim.SetFloat("LastY",lastDirection.y);
+        anim.SetFloat("LastX",prevXY.x);
+        anim.SetFloat("LastY",prevXY.y);
 	}
 }
